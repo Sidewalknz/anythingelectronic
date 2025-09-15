@@ -1,27 +1,100 @@
 .hero {
-  padding: 72px 0 56px; /* comfy space under the transparent navbar */
-  background: linear-gradient(180deg, rgba(31,111,255,0.06), transparent 60%);
-  border-bottom: 1px solid var(--ae-border);
+  /* Overall brightness multiplier for the lines (0..1). 1 keeps the 70% start. */
+  --hero-line-alpha: 1;
+
+  position: relative;
+  padding-block: 120px 80px;
+  min-height: 70vh;
+
+  /* keep your blue gradient background */
+  background:
+    radial-gradient(900px 360px at 50% -10%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #2b7cff 0%, #1f6fff 40%, #124db8 100%);
+  color: #fff;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+/* Canvas behind content; we redraw each frame with per-segment fading */
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(420px 200px at 50% 20%, rgba(255,255,255,0.14), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 .title {
-  font-size: clamp(2.25rem, 3.2vw + 1rem, 3.25rem);
-  line-height: 1.15;
-  margin: 0 0 10px;
-  color: var(--ae-black);
-  letter-spacing: 0.2px;
-  font-weight: 800;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  margin: 0 0 14px;
+  letter-spacing: 0.3px;
+  color: #fff;
 }
 
 .tagline {
-  font-size: 1.125rem;
-  max-width: 48ch;
-  margin: 0 0 18px;
-  opacity: 0.9;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  max-width: 60ch;
+  margin: 0 auto 24px;
+  color: rgba(255,255,255,0.94);
 }
 
 .ctas {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
+}
+
+/* Buttons */
+.ctaPrimary {
+  background: #fff !important;
+  border-color: transparent !important;
+  color: var(--ae-blue-ink) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.16);
+}
+.ctaPrimary:hover { filter: brightness(0.98); }
+
+.ctaSecondary {
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.8) !important;
+  color: #fff !important;
+}
+.ctaSecondary:hover { background: rgba(255,255,255,0.12) !important; }
+
+/* Visually hidden helper */
+.srOnly {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
