@@ -1,0 +1,27 @@
+.hero {
+  padding: 72px 0 56px; /* comfy space under the transparent navbar */
+  background: linear-gradient(180deg, rgba(31,111,255,0.06), transparent 60%);
+  border-bottom: 1px solid var(--ae-border);
+}
+
+.title {
+  font-size: clamp(2.25rem, 3.2vw + 1rem, 3.25rem);
+  line-height: 1.15;
+  margin: 0 0 10px;
+  color: var(--ae-black);
+  letter-spacing: 0.2px;
+  font-weight: 800;
+}
+
+.tagline {
+  font-size: 1.125rem;
+  max-width: 48ch;
+  margin: 0 0 18px;
+  opacity: 0.9;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
