@@ -1,0 +1,94 @@
+.footer {
+  --muted: rgba(255,255,255,0.72);
+  --line: rgba(255,255,255,0.12);
+  --accent: #2563eb;
+  --top-blend: #f8fafc; /* color of the section above the footer */
+  --wave-h: 72px;
+
+  background:
+    radial-gradient(900px 360px at 50% -80px, rgba(255,255,255,0.08), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
+  color: #fff;
+  padding: calc(38px + var(--wave-h)) 0 26px; /* make room for the wave strip */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top wave (tiled, flipped) */
+.waveTop {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: var(--wave-h);
+  line-height: 0;
+  pointer-events: none;
+  transform: scaleY(-1);
+  transform-origin: 50% 50%;
+  z-index: 1;
+}
+.waveSvg { width: 100%; height: 100%; display: block; }
+.waveTopFill { fill: var(--top-blend); }
+
+/* Layout grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 24px;
+  align-items: stretch; /* equal column heights */
+  position: relative;
+  z-index: 2; /* above the wave */
+}
+
+/* center each column vertically */
+.colBrand,
+.colContact,
+.colSite {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  min-height: 100%;
+}
+
+/* per-column horizontal alignment */
+.colBrand { align-items: flex-start; }
+.colContact { align-items: flex-start; }
+.colSite { align-items: center; }
+
+/* Left column */
+.logo { margin: 0 0 10px; line-height: 1; }
+.logoLink { display: inline-flex; align-items: center; text-decoration: none; color: #fff; }
+.logoImg { height: 38px; width: auto; }
+.copyUnderLogo {
+  margin: 6px 0 0;
+  color: rgba(255,255,255,0.68);
+  font-size: .95rem;
+}
+
+/* Center column: contact with icons */
+.contactList { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.contactItem { display: grid; grid-template-columns: 22px 1fr; align-items: center; gap: 10px; }
+.contactIcon { display: grid; place-items: center; color: var(--muted); }
+.contactText { margin: 0; font-style: normal; } /* override <address> italics */
+
+.contactLink {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+}
+.contactLink:hover { color: #fff; border-bottom-color: rgba(255,255,255,0.35); }
+
+/* Right column: plain text link */
+.siteTextLink {
+  color: var(--muted);
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, border-color .15s ease;
+}
+.siteTextLink:hover { color: #fff; border-bottom-color: rgba(255,255,255,0.5); }
+
+/* Optional stacking */
+@media (max-width: 860px) {
+  .grid { grid-template-columns: 1fr; gap: 18px; }
+  .colSite { align-items: flex-start; }
+}

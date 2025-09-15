@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useId, useMemo, useState } from 'react';
 import styles from './SectionBreak.module.css';
 
 export default function SectionBreak({
@@ -12,10 +12,49 @@ export default function SectionBreak({
   const canvasRef = useRef(null);
   const hostRef = useRef(null);
 
+  // unique pattern ids so multiple instances don’t clash
+  const uid = useId();
+  const topPatternId = `sb-wave-top-${uid}`;
+  const bottomPatternId = `sb-wave-bottom-${uid}`;
+
+  // authoring size for the tile; we scale to waveHeight later
+  const TILE_W = 700;      // one full sine period
+  const TILE_H = 120;      // authoring height
+  const waveScale = waveHeight / TILE_H;
+
+  // random horizontal offsets (SSR-safe: applied after mount)
+  const [offsetTopX, setOffsetTopX] = useState(0);
+  const [offsetBottomX, setOffsetBottomX] = useState(0);
+  useEffect(() => {
+    setOffsetTopX(Math.floor(Math.random() * TILE_W));
+    setOffsetBottomX(Math.floor(Math.random() * TILE_W));
+  }, []);
+
+  // build a *seamless* sine wave path as a filled strip
+  const wavePathD = useMemo(() => {
+    const steps = 72;            // more steps = smoother (and still tiny)
+    const A = 28;                // amplitude (in authoring units)
+    const baseline = TILE_H / 2; // 60 for TILE_H=120
+    const twoPiOverW = (Math.PI * 2) / TILE_W;
+
+    // polyline across exactly one full period [0..TILE_W]
+    let d = `M0,${baseline}`;
+    for (let i = 1; i <= steps; i++) {
+      const x = (i / steps) * TILE_W;
+      const y = baseline + A * Math.sin(twoPiOverW * x);
+      d += ` L${x.toFixed(2)},${y.toFixed(2)}`;
+    }
+
+    // close the shape to the bottom of the tile (filled wave “cap”)
+    d += ` L${TILE_W},${TILE_H} L0,${TILE_H} Z`;
+    return d;
+  }, []);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const host = hostRef.current;
     if (!canvas || !host) return;
+
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -100,7 +139,7 @@ export default function SectionBreak({
         buildMap();
         nodes = [];
       }
-      if (nodes.length < 10) {
+      if (nodes.length < 10 && open.length) {
         const next = open[ri(0, open.length)];
         if (next) nodes.push(buildNode(next.x, next.y));
       }
@@ -130,6 +169,12 @@ export default function SectionBreak({
       }
       nodes = nodes.filter(n => !n.stuck());
 
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.lineWidth = 2;
       ctx.strokeStyle = '#3060ffff';
@@ -155,6 +200,10 @@ export default function SectionBreak({
     }
 
     function size() {
+      const host = hostRef.current;
+      const canvas = canvasRef.current;
+      if (!host || !canvas) return;
+
       const rect = host.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -167,7 +216,9 @@ export default function SectionBreak({
       canvas.height = Math.floor(global.h * dpr);
       canvas.style.width = `${global.w}px`;
       canvas.style.height = `${global.h}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const ctx = canvas.getContext('2d');
+      if (ctx) ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       readAlpha();
       buildMap();
@@ -181,14 +232,14 @@ export default function SectionBreak({
     const onResize = () => size();
     const onClick = () => maybeRebuild(true);
     window.addEventListener('resize', onResize, { passive: true });
-    canvas.addEventListener('click', onClick);
+    hostRef.current?.addEventListener('click', onClick); // canvas has pointer-events: none
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('resize', onResize);
-      canvas.removeEventListener('click', onClick);
+      hostRef.current?.removeEventListener('click', onClick);
     };
-  }, []);
+  }, [wavePathD]);
 
   return (
     <section
@@ -202,19 +253,46 @@ export default function SectionBreak({
       }}
       aria-hidden="true"
     >
-      <div className={styles.waveTop}>
-        <svg className={styles.waveSvg} viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,70 C220,120 440,18 720,66 C1000,114 1200,16 1440,64 L1440,0 L0,0 Z" className={styles.waveHighlight} />
-          <path d="M0,64 C220,120 440,0 720,48 C1000,96 1200,16 1440,64 L1440,120 L0,120 Z" className={styles.waveTopFill} />
+      {/* TOP (flipped in CSS) */}
+      <div className={styles.waveTop} aria-hidden="true">
+        <svg className={styles.waveSvg} width="100%" height="100%" aria-hidden="true">
+          <defs>
+            <pattern
+              id={topPatternId}
+              patternUnits="userSpaceOnUse"
+              patternContentUnits="userSpaceOnUse"
+              width={TILE_W}
+              height={TILE_H}
+              /* randomize X offset, then scale Y to desired height */
+              patternTransform={`translate(${-offsetTopX} 0) scale(1 ${waveScale})`}
+            >
+              <path d={wavePathD} className={styles.waveTopFill} />
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="100%" height="100%" fill={`url(#${topPatternId})`} />
         </svg>
       </div>
 
+      {/* Blue circuit animation */}
       <canvas ref={canvasRef} className={styles.canvas} />
 
-      <div className={styles.waveBottom}>
-        <svg className={styles.waveSvg} viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,70 C220,120 440,18 720,66 C1000,114 1200,16 1440,64 L1440,0 L0,0 Z" className={styles.waveHighlight} />
-          <path d="M0,64 C220,120 440,0 720,48 C1000,96 1200,16 1440,64 L1440,120 L0,120 Z" className={styles.waveBottomFill} />
+      {/* BOTTOM */}
+      <div className={styles.waveBottom} aria-hidden="true">
+        <svg className={styles.waveSvg} width="100%" height="100%" aria-hidden="true">
+          <defs>
+            <pattern
+              id={bottomPatternId}
+              patternUnits="userSpaceOnUse"
+              patternContentUnits="userSpaceOnUse"
+              width={TILE_W}
+              height={TILE_H}
+              /* independent random X offset for the bottom wave */
+              patternTransform={`translate(${-offsetBottomX} 0) scale(1 ${waveScale})`}
+            >
+              <path d={wavePathD} className={styles.waveBottomFill} />
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="100%" height="100%" fill={`url(#${bottomPatternId})`} />
         </svg>
       </div>
     </section>

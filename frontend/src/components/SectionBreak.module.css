@@ -13,6 +13,7 @@
   overflow: hidden;
 }
 
+/* Tiled wave strips */
 .waveTop,
 .waveBottom {
   position: absolute;
@@ -22,20 +23,21 @@
   pointer-events: none;
   z-index: 2;
 }
-.waveTop { top: 0; transform: scaleY(-1); }
+.waveTop { top: 0; transform: scaleY(-1); transform-origin: 50% 50%; }
 .waveBottom { bottom: 0; }
 
 .waveSvg { width: 100%; height: 100%; display: block; }
-.waveHighlight { fill: rgba(255,255,255,0); }
+
 .waveTopFill { fill: var(--top-blend); }
 .waveBottomFill { fill: var(--bottom-blend); }
 
+/* Canvas behind the waves */
 .canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   display: block;
-  pointer-events: none;
+  pointer-events: none; /* click handled on host */
   z-index: 1;
 }
