@@ -6,17 +6,37 @@ import styles from './WhatWeDo.module.css';
 export default function WhatWeDo() {
   return (
     <section className={styles.section} aria-labelledby="what-title">
-      {/* curved top blend into this section */}
+      {/* curved top blend: tiles horizontally without stretching */}
       <div className={styles.topBlend} aria-hidden="true">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path
-            d="M0,70 C220,120 440,18 720,66 C1000,114 1200,16 1440,64 L1440,0 L0,0 Z"
-            className={styles.topHighlight}
-          />
-          <path
-            d="M0,64 C220,120 440,0 720,48 C1000,96 1200,16 1440,64 L1440,120 L0,120 Z"
-            className={styles.topFill}
-          />
+        <svg
+          className={styles.topSvg}
+          /* no viewBox on purpose: user units = CSS px (needed for proper tiling) */
+          width="100%"
+          height="120"
+          aria-hidden="true"
+        >
+          <defs>
+            <pattern
+              id="wwd-wave"
+              patternUnits="userSpaceOnUse"
+              patternContentUnits="userSpaceOnUse"
+              width="1440"   /* tile width in CSS px */
+              height="120"   /* tile height in CSS px */
+            >
+              {/* original 1440x120 wave paths (one tile) */}
+              <path
+                d="M0,70 C220,120 440,18 720,66 C1000,114 1200,16 1440,64 L1440,0 L0,0 Z"
+                className={styles.topHighlight}
+              />
+              <path
+                d="M0,64 C220,120 440,0 720,48 C1000,96 1200,16 1440,64 L1440,120 L0,120 Z"
+                className={styles.topFill}
+              />
+            </pattern>
+          </defs>
+
+          {/* Paint the full strip; pattern repeats every 1440px horizontally */}
+          <rect x="0" y="0" width="100%" height="120" fill="url(#wwd-wave)" />
         </svg>
       </div>
 

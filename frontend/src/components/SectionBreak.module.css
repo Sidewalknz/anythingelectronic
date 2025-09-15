@@ -1,0 +1,41 @@
+.break {
+  --break-height: 260px;
+  --wave-h: 72px;
+  --top-blend: #f8fafc;
+  --bottom-blend: #f8fafc;
+  --break-line-alpha: 1;
+
+  position: relative;
+  height: var(--break-height);
+  background:
+    radial-gradient(900px 360px at 50% -10%, rgba(255,255,255,0.22), rgba(255,255,255,0) 60%),
+    linear-gradient(180deg, #2b7cff 0%, #1f6fff 40%, #124db8 100%);
+  overflow: hidden;
+}
+
+.waveTop,
+.waveBottom {
+  position: absolute;
+  left: 0; right: 0;
+  height: var(--wave-h);
+  line-height: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.waveTop { top: 0; transform: scaleY(-1); }
+.waveBottom { bottom: 0; }
+
+.waveSvg { width: 100%; height: 100%; display: block; }
+.waveHighlight { fill: rgba(255,255,255,0); }
+.waveTopFill { fill: var(--top-blend); }
+.waveBottomFill { fill: var(--bottom-blend); }
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  z-index: 1;
+}
