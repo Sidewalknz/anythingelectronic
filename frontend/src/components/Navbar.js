@@ -26,11 +26,11 @@ export default function Navbar() {
                 <ul className={`${styles.centerList} ${styles.centerLeft}`}>
                   <li>
                     <Link
-                      href="/products"
-                      className={`${styles.link} ${isActive('/products') ? styles.active : ''}`}
-                      aria-current={isActive('/products') ? 'page' : undefined}
+                      href="/catalog"
+                      className={`${styles.link} ${isActive('/catalog') ? styles.active : ''}`}
+                      aria-current={isActive('/catalog') ? 'page' : undefined}
                     >
-                      Products
+                      Catalog
                     </Link>
                   </li>
                   <li>
@@ -63,11 +63,11 @@ export default function Navbar() {
                 <ul className={`${styles.centerList} ${styles.centerRight}`}>
                   <li>
                     <Link
-                      href="/rnd"
-                      className={`${styles.link} ${isActive('/rnd') ? styles.active : ''}`}
-                      aria-current={isActive('/rnd') ? 'page' : undefined}
+                      href="/about"
+                      className={`${styles.link} ${isActive('/about') ? styles.active : ''}`}
+                      aria-current={isActive('/about') ? 'page' : undefined}
                     >
-                      Research
+                      About
                     </Link>
                   </li>
                   <li>

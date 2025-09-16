@@ -235,8 +235,7 @@ export default function Hero() {
         <div className={styles.inner}>
           <h1 id="hero-title" className={styles.title}>Anything&apos;s Possible</h1>
           <p className={styles.tagline}>
-            Electronic repair & manufacturing in Nelson, NZ for trade customers —
-            franchise dealers, garages, and auto electricians.
+            Electronic repair & manufacturing in Nelson, NZ for trade customers, franchise dealers, garages, and auto electricians.
           </p>
           <div className={styles.ctas}>
             <Link href="/shop" className={`button ${styles.ctaPrimary}`}>

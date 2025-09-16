@@ -31,7 +31,7 @@ export default function Capabilities() {
             </p>
             <div className={styles.ctaRow}>
               <Link href="/contact" className={styles.cardLink}>
-                Ask about SMT <span className={styles.arrow} aria-hidden="true">→</span>
+                See our inhouse products <span className={styles.arrow} aria-hidden="true">→</span>
               </Link>
             </div>
           </li>
@@ -53,7 +53,7 @@ export default function Capabilities() {
             </p>
             <div className={styles.ctaRow}>
               <Link href="/rnd" className={styles.cardLink}>
-                See design approach <span className={styles.arrow} aria-hidden="true">→</span>
+                Discuss your project <span className={styles.arrow} aria-hidden="true">→</span>
               </Link>
             </div>
           </li>
@@ -71,11 +71,6 @@ export default function Capabilities() {
               Complete assemblies from a single PCBA in a small case to cabinet level systems. We manage mechanicals,
               wiring, labeling and full system test so the finished unit is ready to deploy.
             </p>
-            <div className={styles.ctaRow}>
-              <Link href="/contact" className={styles.cardLink}>
-                Discuss integration <span className={styles.arrow} aria-hidden="true">→</span>
-              </Link>
-            </div>
           </li>
 
           <li className={styles.card}>
@@ -92,11 +87,6 @@ export default function Capabilities() {
               Clear specs that define scope, interfaces and acceptance tests. We map phases and deliverables so
               requirements stay traceable and the work stays on time and on budget.
             </p>
-            <div className={styles.ctaRow}>
-              <Link href="/contact" className={styles.cardLink}>
-                Start a spec <span className={styles.arrow} aria-hidden="true">→</span>
-              </Link>
-            </div>
           </li>
         </ul>
       </div>

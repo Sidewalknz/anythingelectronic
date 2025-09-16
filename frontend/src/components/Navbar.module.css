@@ -2,8 +2,9 @@
   --logo-h: 70px;
   --notch-bg: #f2f3f5;
   --notch-border: rgba(0,0,0,0.08);
-  --dock-radius-bottom: 80px;
-  --dock-inverse: 120px;
+  --dock-radius-bottom: 60px;
+  --dock-inverse: 147px;
+  --top-rail: 5px;
 
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -35,8 +36,8 @@
 .topRail {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 4px;
-  background: #fff;
+  height: var(--top-rail);
+  background: #f2f3f5;
   opacity: 0.9;
   pointer-events: none;
   z-index: 100;

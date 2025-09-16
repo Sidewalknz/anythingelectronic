@@ -1,0 +1,91 @@
+/* push content below the docked navbar */
+.wrap { padding: 140px 0 64px; }
+
+.header { max-width: 1200px; margin: 0 auto 16px; padding: 0 16px; }
+.title { margin: 0 0 6px; font-weight: 900; font-size: clamp(1.6rem, 2.6vw, 2.2rem); color: #0b1220; }
+.subtitle { margin: 0 0 12px; color: rgba(11,18,32,0.72); }
+
+/* Single input now; keep the responsive container */
+.filters { display: grid; grid-auto-flow: row; gap: 10px; width: 100%; max-width: 720px; }
+.search {
+  height: 40px; border-radius: 10px; border: 1px solid rgba(11,18,32,0.12);
+  background: #fff; padding: 0 12px; font-size: 0.98rem;
+}
+
+.grid {
+  max-width: 1200px; margin: 18px auto 0; padding: 0 16px;
+  list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+}
+
+.card {
+  background: #fff; border: 1px solid rgba(11,18,32,0.08); border-radius: 16px;
+  overflow: hidden; display: grid; grid-template-rows: auto 1fr;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.10); border-color: rgba(11,18,32,0.12); }
+
+.thumb { aspect-ratio: 4/3; background: #f7f8fa; }
+.thumbImg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.cardBody { padding: 14px; display: grid; gap: 10px; }
+
+.topRow { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 10px; }
+.cardTitle { margin: 0; font-size: 1.05rem; font-weight: 800; color: #0b1220; }
+.part { color: rgba(11,18,32,0.6); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+.metaRow { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+.cat {
+  font-size: .75rem; font-weight: 800; color: #2563eb;
+  background: rgba(37,99,235,0.10); border: 1px solid rgba(37,99,235,0.24);
+  padding: 4px 8px; border-radius: 999px;
+}
+.tags { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.tag {
+  font-size: .74rem; color: rgba(11,18,32,0.75); border: 1px solid rgba(11,18,32,0.12);
+  padding: 3px 8px; border-radius: 999px; background: #fff;
+}
+
+.cardDesc { margin: 0; color: rgba(11,18,32,0.72); font-size: .95rem; }
+
+.priceRow { display: flex; gap: 12px; align-items: center; }
+.priceRetail {
+  font-weight: 900; color: #0b1220; background: rgba(11,18,32,0.06); border: 1px solid rgba(11,18,32,0.12);
+  padding: 4px 8px; border-radius: 8px;
+}
+.priceMember {
+  font-weight: 900; color: #1f4ed8; background: rgba(37,99,235,0.10); border: 1px solid rgba(37,99,235,0.24);
+  padding: 4px 8px; border-radius: 8px;
+}
+
+/* links + add button row */
+.linksRow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-start; }
+.pillLink {
+  text-decoration: none; font-weight: 700; color: #2563eb; background: rgba(37,99,235,0.08);
+  border: 1px solid rgba(37,99,235,0.22); border-radius: 999px; padding: 6px 10px;
+}
+.pillLink:hover { background: rgba(37,99,235,0.12); }
+
+/* Add button */
+.addBtn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(37,99,235,0.22);
+  background: rgba(37,99,235,0.08);
+  color: #2563eb;
+  font-weight: 800;
+  cursor: pointer;
+}
+.addBtn:hover { background: rgba(37,99,235,0.12); }
+.added {
+  background: rgba(16,185,129,0.12);
+  border-color: rgba(16,185,129,0.24);
+  color: #065f46;
+}
+
+.empty {
+  grid-column: 1 / -1; text-align: center; color: rgba(11,18,32,0.6);
+  padding: 40px 0;
+}
+
+@media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px)  { .grid { grid-template-columns: 1fr; } .filters { grid-auto-flow: row; } }
