@@ -6,6 +6,30 @@ import Link from 'next/link';
 import { getSelection, removeItem, clearSelection, updateQuantity } from '@/lib/selection';
 import styles from './ContactPage.module.css';
 
+/** Build a .webp path under /public/products, or placeholder if none provided */
+const toWebpPath = (image) => {
+  if (!image) return '/products/placeholder.webp';
+  const safe = image.replace(/\.(jpe?g|png|gif|webp)$/i, '');
+  return `/products/${safe}.webp`;
+};
+
+/** Small component to handle onError fallback to placeholder.webp */
+function RowThumbImage({ image, alt, className, width = 120, height = 90, sizes = '120px' }) {
+  const [errored, setErrored] = useState(false);
+  const src = errored ? '/products/placeholder.webp' : toWebpPath(image);
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes={sizes}
+      className={className}
+      onError={() => setErrored(true)}
+    />
+  );
+}
+
 export default function ContactPage() {
   const [items, setItems] = useState([]);
   const [name, setName] = useState('');
@@ -89,13 +113,13 @@ export default function ContactPage() {
             {items.map((i) => (
               <li key={i.partnumber} className={styles.rowCard}>
                 <div className={styles.rowThumb}>
-                  <Image
-                    src={i.image}
+                  <RowThumbImage
+                    image={i.image}
                     alt={i.title}
+                    className={styles.rowThumbImg}
                     width={120}
                     height={90}
                     sizes="120px"
-                    className={styles.rowThumbImg}
                   />
                 </div>
 
@@ -198,21 +222,17 @@ export default function ContactPage() {
 
         <aside className={styles.infoCol} aria-labelledby="contact-info-title">
           <h2 id="contact-info-title" className={styles.infoTitle}>Contact Information</h2>
-
           <div className={styles.infoGrid}>
             <article className={styles.infoCard}>
               <h3 className={styles.infoCardTitle}>Contact</h3>
               <address className={styles.addr}>
                 <div className={styles.addrLine}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path d="M12 2C8.686 2 6 4.686 6 8c0 5.25 6 12 6 12s6-6.75 6-12c0-3.314-2.686-6-6-6Zm0 8.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>
                   <span>7 Bullen Street, Tahunanui, Nelson, 7011</span>
                 </div>
                 <div className={styles.addrLine}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.1.36 2.28.55 3.5.55a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C11.85 21 3 12.15 3 1a1 1 0 0 1 1-1h3.51a1 1 0 0 1 1 1c0 1.22.19 2.4.55 3.5a1 1 0 0 1-.25 1.01l-2.19 2.28Z" fill="currentColor"/></svg>
                   <a className={styles.link} href="tel:+6435485336">+64 3 548 5336</a>
                 </div>
                 <div className={styles.addrLine}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden><path d="M20 4H4a2 2 0 0 0-2 2v.4l10 6.25L22 6.4V6a2 2 0 0 0-2-2Zm2 5.2-10 6.25L0 9.2V18a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V9.2Z" fill="currentColor"/></svg>
                   <a className={styles.link} href="mailto:sales@anythingelectronic.co.nz">
                     sales@anythingelectronic.co.nz
                   </a>
