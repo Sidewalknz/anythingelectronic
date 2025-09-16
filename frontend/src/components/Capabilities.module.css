@@ -12,9 +12,7 @@
 
   position: relative;
   padding: clamp(52px, 7vw, 72px) 0 clamp(64px, 7.5vw, 80px);
-  background:
-    radial-gradient(800px 260px at 50% -120px, rgba(37,99,235,0.06), transparent 60%),
-    #ffffff;
+  background:#ffffff;
 }
 
 .header { text-align: center; margin: 0 0 24px; }
