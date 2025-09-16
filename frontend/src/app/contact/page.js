@@ -225,19 +225,21 @@ export default function ContactPage() {
           <div className={styles.infoGrid}>
             <article className={styles.infoCard}>
               <h3 className={styles.infoCardTitle}>Contact</h3>
-              <address className={styles.addr}>
-                <div className={styles.addrLine}>
-                  <span>7 Bullen Street, Tahunanui, Nelson, 7011</span>
-                </div>
-                <div className={styles.addrLine}>
-                  <a className={styles.link} href="tel:+6435485336">+64 3 548 5336</a>
-                </div>
-                <div className={styles.addrLine}>
-                  <a className={styles.link} href="mailto:sales@anythingelectronic.co.nz">
-                    sales@anythingelectronic.co.nz
-                  </a>
-                </div>
-              </address>
+                <address className={styles.addr}>
+                  <div className={styles.addrBlock}>
+                    7 Bullen street<br />
+                    Tahunanui<br />
+                    Nelson, 7011
+                  </div>
+                  <div className={styles.addrBlock}>
+                    <a className={styles.link} href="tel:+6435485336">+64 3 548 5336</a>
+                  </div>
+                  <div className={styles.addrBlock}>
+                    <a className={styles.link} href="mailto:sales@anythingelectronic.co.nz">
+                      sales@anythingelectronic.co.nz
+                    </a>
+                  </div>
+                </address>
             </article>
 
             <article className={styles.infoCard}>
