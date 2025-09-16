@@ -18,7 +18,7 @@ export default function Capabilities() {
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
               {/* Pick & Place / SMT */}
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Pick and Place">
                 <path d="M4 18h16M6 15h4l2-3 2 3h4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M12 4v5m0 0l2 2m-2-2l-2 2" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
@@ -39,7 +39,7 @@ export default function Capabilities() {
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
               {/* PCB & Circuit Design */}
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="PCB and Circuit Design">
                 <rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
                 <circle cx="9" cy="10" r="1.25" fill="currentColor"/>
                 <circle cx="15" cy="10" r="1.25" fill="currentColor"/>
@@ -61,7 +61,7 @@ export default function Capabilities() {
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
               {/* Box Builds */}
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Box Builds">
                 <path d="M12 3l8 4v10l-8 4-8-4V7l8-4z" fill="none" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M12 7l8 4M12 7L4 11M12 7v10" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
@@ -76,7 +76,7 @@ export default function Capabilities() {
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
               {/* Specification Writing */}
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Specification Writing">
                 <rect x="4" y="3" width="12" height="18" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5"/>
                 <path d="M8 7h4M8 10h6M8 13h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 <path d="M16 15l3 3-4 1 1-4z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
