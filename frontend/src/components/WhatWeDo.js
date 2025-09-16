@@ -12,8 +12,9 @@ export default function WhatWeDo() {
           className={styles.topSvg}
           /* no viewBox on purpose: user units = CSS px (needed for proper tiling) */
           width="100%"
-          height="120"
+          height="100%"
           aria-hidden="true"
+          focusable="false"
         >
           <defs>
             <pattern
@@ -36,7 +37,7 @@ export default function WhatWeDo() {
           </defs>
 
           {/* Paint the full strip; pattern repeats every 1440px horizontally */}
-          <rect x="0" y="0" width="100%" height="120" fill="url(#wwd-wave)" />
+          <rect x="0" y="0" width="100%" height="100%" fill="url(#wwd-wave)" />
         </svg>
       </div>
 
@@ -51,7 +52,7 @@ export default function WhatWeDo() {
         <ul className={styles.grid} aria-label="Our services">
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Manufacturing">
                 <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" strokeWidth="1.5" />
                 <circle cx="8" cy="10" r="1.25" fill="currentColor" />
                 <circle cx="12" cy="10" r="1.25" fill="currentColor" />
@@ -74,7 +75,7 @@ export default function WhatWeDo() {
 
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Servicing">
                 <path d="M4 7h16v10H4z" fill="none" stroke="currentColor" strokeWidth="1.5" />
                 <path d="M6 12h3l2 3 2-6 2 3h3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
@@ -94,7 +95,7 @@ export default function WhatWeDo() {
 
           <li className={styles.card}>
             <div className={styles.iconWrap} aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="28" height="28" role="img">
+              <svg viewBox="0 0 24 24" width="28" height="28" role="img" aria-label="Research and development">
                 <path d="M12 3a6 6 0 0 0-3 11.2V17h6v-2.8A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" strokeWidth="1.5" />
                 <path d="M9 20h6M10 22h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>

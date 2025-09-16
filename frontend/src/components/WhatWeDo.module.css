@@ -7,6 +7,11 @@
   /* base color used by the wave fill (keep in sync with background) */
   --blend-bg: #f8fafc;
 
+  /* responsive knobs (no dark mode—just mobile friendly) */
+  --wave-h: 120px;            /* default wave height on desktop */
+  --wave-offset: -119px;      /* overlaps the Hero slightly */
+  --gap: 18px;
+
   position: relative;
   padding: 80px 0;
   background:
@@ -17,10 +22,10 @@
 /* curved top blend */
 .topBlend {
   position: absolute;
-  top: -119px; /* overlaps the Hero slightly for a seamless join */
+  top: var(--wave-offset);
   left: 0;
   right: 0;
-  height: 120px;
+  height: var(--wave-h);
   line-height: 0;
   pointer-events: none;
   z-index: 1;
@@ -55,7 +60,7 @@
 }
 
 .title {
-  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  font-size: clamp(1.6rem, 2.6vw, 2.25rem);
   line-height: 1.15;
   font-weight: 900;
   color: var(--ink);
@@ -69,7 +74,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: var(--gap);
 }
 
 /* card */
@@ -81,6 +86,8 @@
   box-shadow: 0 6px 24px rgba(0,0,0,0.06);
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
   will-change: transform;
+  display: flex;
+  flex-direction: column;
 }
 .card:hover {
   transform: translateY(-4px);
@@ -101,7 +108,7 @@
 }
 
 .cardTitle {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.25;
   font-weight: 800;
   color: var(--ink);
@@ -150,3 +157,51 @@
 
 .arrow { transition: transform .22s ease; }
 .cardLink:hover .arrow { transform: translateX(3px); }
+
+/* =========================
+   Responsive (tablet & mobile)
+   ========================= */
+
+/* Tablet (<= 1024px): move to 2 columns, slightly tighter spacing */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .section {
+    padding: 64px 0;
+  }
+}
+
+/* Phablet (<= 768px): reduce wave height a bit, soften sizes */
+@media (max-width: 768px) {
+  .section {
+    --wave-h: 96px;
+    --wave-offset: -95px;
+    padding: 56px 0;
+  }
+  .title { font-size: clamp(1.5rem, 4.5vw, 2rem); }
+  .cardTitle { font-size: 1.06rem; }
+  .cardText { font-size: 0.97rem; }
+}
+
+/* Mobile (<= 640px): single column, comfortable tap targets, smaller wave */
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .section {
+    --wave-h: 84px;
+    --wave-offset: -83px;
+    padding: 48px 0;
+    background:
+      radial-gradient(600px 220px at 50% -84px, rgba(37,99,235,0.06), transparent 60%),
+      var(--blend-bg);
+  }
+  .header { margin-bottom: 22px; }
+  .kicker { font-size: 11px; padding: 5px 9px; }
+  .card { padding: 18px 16px; border-radius: 14px; }
+  .iconWrap { width: 40px; height: 40px; border-radius: 10px; }
+  .cardLink { padding: 8px 2px; min-height: 40px; }
+}
